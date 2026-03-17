@@ -1,0 +1,29 @@
+# Maven
+target/
+!target/pom.xml.properties
+!target/pom.xml
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+.env.local
+
+# Build artifacts
+*.war
+*.jar
