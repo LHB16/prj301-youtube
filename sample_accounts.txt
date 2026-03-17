@@ -1,23 +1,52 @@
-Tài khoản mẫu:
+TÀI KHOẢN MẪU VÀ DỮ LIỆU MẪU
 
-== ADMIN ==
-Username: admin
-Password: admin
-Role: Admin (quyền cao nhất)
+== TÀI KHOẢN ==
 
-== USER THƯỜNG ==
-Username: user1
-Password: 123
-Role: User thường
+1. ADMIN
+   Username: admin
+   Password: admin
+   Role: Admin (quyền cao nhất - quản lý toàn bộ)
 
-Username: user2
-Password: 123
-Role: User thường
+2. USER 1
+   Username: user1
+   Password: 123
+   Role: User thường
+   Đã upload: 1 video
 
-== Mô tả quyền ==
-- role = 1: Admin (có thể quản lý user, video, category)
-- role = 0: User thường (chỉ xem và upload video của mình)
+3. USER 2
+   Username: user2
+   Password: 123
+   Role: User thường
+   Đã upload: 2 videos
 
-== Cách dùng ==
-1. Login bằng tài khoản admin để vào trang admin
-2. Login bằng user thường để test các tính năng cơ bản
+== DỮ LIỆU MẪU ==
+
+1. CATEGORIES (8 danh mục):
+   - Gaming, Music, Education, Tech, Lifestyle, Comedy, Sports, Food
+
+2. VIDEOS (8 video mẫu):
+   - Top 10 Game Moments 2024 (Gaming)
+   - Learn Java in 30 Minutes (Education)
+   - Best Tech Gadgets 2024 (Tech)
+   - Cooking Pasta Like a Pro (Food)
+   - Funny Cat Compilation (Comedy)
+   - Football Highlights (Sports)
+   - Piano Lesson for Beginners (Music)
+   - Gaming Setup Tour (Gaming)
+
+3. COMMENTS (5 comment mẫu)
+
+4. SUBSCRIPTIONS (3 subscription mẫu)
+
+== CÁCH DÙNG ==
+
+1. Login bằng admin để vào trang admin: /admin
+2. Login bằng user1/user2 để test upload video
+3. Xem danh sách video tại trang chủ
+4. Test các tính năng: like, comment, subscribe
+
+== LƯU Ý ==
+
+- Các video dùng sample videos từ Google (không cần upload thật)
+- Password là MD5 hash
+- Đã tắt RLS để dễ test
