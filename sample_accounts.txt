@@ -1,52 +1,59 @@
-TÀI KHOẢN MẪU VÀ DỮ LIỆU MẪU
+TÀI KHOẢN MẪU - GIỐNG PRJ301_YouTube.sql
 
 == TÀI KHOẢN ==
 
 1. ADMIN
    Username: admin
-   Password: admin
-   Role: Admin (quyền cao nhất - quản lý toàn bộ)
+   Password: 123456
+   Role: Admin (quyền cao nhất)
 
-2. USER 1
-   Username: user1
+2. binh_fpt
+   Username: binh_fpt
    Password: 123
    Role: User thường
-   Đã upload: 1 video
 
-3. USER 2
-   Username: user2
+3. thay_giao
+   Username: thay_giao
    Password: 123
    Role: User thường
-   Đã upload: 2 videos
+
+4. son_tung
+   Username: son_tung
+   Password: 123
+   Role: User thường
+
+5. do_mixi
+   Username: do_mixi
+   Password: 123
+   Role: User thường
+
+6. vtv_news
+   Username: vtv_news
+   Password: 123
+   Role: User thường
+
+7. fap_tv
+   Username: fap_tv
+   Password: 123
+   Role: User thường
 
 == DỮ LIỆU MẪU ==
 
-1. CATEGORIES (8 danh mục):
-   - Gaming, Music, Education, Tech, Lifestyle, Comedy, Sports, Food
+1. CATEGORIES (6 danh mục):
+   - Game, Am nhac, Phim, Tin tuc, Giao duc, The thao
 
-2. VIDEOS (8 video mẫu):
-   - Top 10 Game Moments 2024 (Gaming)
-   - Learn Java in 30 Minutes (Education)
-   - Best Tech Gadgets 2024 (Tech)
-   - Cooking Pasta Like a Pro (Food)
-   - Funny Cat Compilation (Comedy)
-   - Football Highlights (Sports)
-   - Piano Lesson for Beginners (Music)
-   - Gaming Setup Tour (Gaming)
+2. VIDEOS (6 video mẫu):
+   - LCS Summer 2026 Highlighs (Game)
+   - Chung ta cua tuong lai (Am nhac)
+   - Review Phim: Lat Mat 7 (Phim)
+   - Tin nong 24h (Tin tuc)
+   - Java Servlet can ban (Giao duc)
+   - Highlight Ngoai Hang Anh (The thao)
 
-3. COMMENTS (5 comment mẫu)
+3. COMMENTS (6 comment mẫu)
 
-4. SUBSCRIPTIONS (3 subscription mẫu)
+4. SUBSCRIPTIONS (6 subscription mẫu)
 
-== CÁCH DÙNG ==
-
-1. Login bằng admin để vào trang admin: /admin
-2. Login bằng user1/user2 để test upload video
-3. Xem danh sách video tại trang chủ
-4. Test các tính năng: like, comment, subscribe
-
-== LƯU Ý ==
-
-- Các video dùng sample videos từ Google (không cần upload thật)
-- Password là MD5 hash
-- Đã tắt RLS để dễ test
+== PASSWORD MD5 ==
+- 123 = 202cb962ac59075b964b07152d234b70
+- 123456 = e10adc3949ba59abbe56e057f20f883e
