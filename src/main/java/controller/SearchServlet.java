@@ -27,6 +27,6 @@ public class SearchServlet extends HttpServlet {
         request.setAttribute("videos", videos);
         request.setAttribute("keyword", keyword);
 
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 }
