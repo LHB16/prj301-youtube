@@ -8,4 +8,9 @@
             30
         </session-timeout>
     </session-config>
+    
+    <!-- Default page -->
+    <welcome-file-list>
+        <welcome-file>login</welcome-file>
+    </welcome-file-list>
 </web-app>
