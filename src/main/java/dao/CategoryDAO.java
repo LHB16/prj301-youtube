@@ -10,13 +10,13 @@ import util.DBContext;
 public class CategoryDAO extends DBContext {
     public List<Category> getAll() {
         List<Category> list = new ArrayList<>();
-        String sql = "SELECT * FROM Categories";
+        String sql = "SELECT * FROM categories";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("categoryID");
-                String name = rs.getString("categoryName");
+                int id = rs.getInt("categoryid");
+                String name = rs.getString("categoryname");
                 list.add(new Category(id, name));
             }
         } catch (Exception e) {
@@ -26,14 +26,14 @@ public class CategoryDAO extends DBContext {
     }
 
     public Category getCategoryById(int id) {
-        String sql = "SELECT * FROM Categories WHERE categoryID=?";
+        String sql = "SELECT * FROM categories WHERE categoryid=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int categoryId = rs.getInt("categoryID");
-                String categoryName = rs.getString("categoryName");
+                int categoryId = rs.getInt("categoryid");
+                String categoryName = rs.getString("categoryname");
                 return new Category(categoryId, categoryName);
             }
         } catch (Exception e) {

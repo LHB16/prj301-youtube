@@ -51,7 +51,14 @@ public class DBContext {
     
     private String convertSupabaseUrlToJdbc(String supabaseUrl) {
         // Convert postgresql://user:pass@host:port/db to jdbc:postgresql://host:port/db?user=user&password=pass
-        String url = supabaseUrl.replace("postgres://", "jdbc:postgresql://");
+        String url = supabaseUrl;
+        
+        // Handle both "postgresql://" and "postgres://" formats
+        if (url.startsWith("postgresql://")) {
+            url = "jdbc:" + url; // jdbc:postgresql://user:pass@host:port/db
+        } else if (url.startsWith("postgres://")) {
+            url = url.replace("postgres://", "jdbc:postgresql://");
+        }
         
         // Extract user:pass from URL
         if (url.contains("@")) {
@@ -64,16 +71,18 @@ public class DBContext {
             String user = credParts[0];
             String password = credParts.length > 1 ? credParts[1] : "";
             
-            // Reconstruct URL
+            // Reconstruct URL with SSL for Supabase
             String jdbcUrl = "jdbc:postgresql://" + hostAndPath;
             
-            // Add user and password as query params if not already present
-            if (!jdbcUrl.contains("user=")) {
-                jdbcUrl += "?user=" + user;
+            // Add user, password, and SSL params
+            if (!jdbcUrl.contains("?")) {
+                jdbcUrl += "?";
+            } else {
+                jdbcUrl += "&";
             }
-            if (!jdbcUrl.contains("password=")) {
-                jdbcUrl += "&password=" + password;
-            }
+            jdbcUrl += "user=" + user;
+            jdbcUrl += "&password=" + password;
+            jdbcUrl += "&sslmode=require";
             
             return jdbcUrl;
         }

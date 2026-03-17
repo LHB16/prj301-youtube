@@ -1,0 +1,22 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+*.iml
+.project
+.classpath
+.settings
+
+# Build artifacts (se build lai trong Docker)
+target
+
+# Docs
+*.md
+*.txt
+*.sql
+
+# OS
+.DS_Store
+Thumbs.db

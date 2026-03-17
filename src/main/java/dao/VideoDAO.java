@@ -12,31 +12,31 @@ import util.DBContext;
 public class VideoDAO extends DBContext {
     public List<Video> getAll() {
         List<Video> list = new ArrayList<>();
-        String sql = "SELECT v.videoID, v.title, v.description, v.uploadDate, v.status, "
-                + "u.userID, u.username, u.fullName, u.email, "
-                + "c.categoryID, c.categoryName "
-                + "FROM Videos v "
-                + "INNER JOIN Users u ON v.userID = u.userID "
-                + "INNER JOIN Categories c ON v.categoryID = c.categoryID";
+        String sql = "SELECT v.videoid, v.title, v.description, v.uploaddate, v.status, "
+                + "u.userid, u.username, u.fullname, u.email, "
+                + "c.categoryid, c.categoryname "
+                + "FROM videos v "
+                + "INNER JOIN users u ON v.userid = u.userid "
+                + "INNER JOIN categories c ON v.categoryid = c.categoryid";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setUserId(rs.getInt("userID"));
+                user.setUserId(rs.getInt("userid"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
 
                 Category category = new Category();
-                category.setCategoryId(rs.getInt("categoryID"));
-                category.setCategoryName(rs.getString("categoryName"));
+                category.setCategoryId(rs.getInt("categoryid"));
+                category.setCategoryName(rs.getString("categoryname"));
 
                 Video video = new Video();
-                video.setVideoId(rs.getInt("videoID"));
+                video.setVideoId(rs.getInt("videoid"));
                 video.setTitle(rs.getString("title"));
                 video.setDescription(rs.getString("description"));
-                video.setUploadDate(rs.getTimestamp("uploadDate"));
+                video.setUploadDate(rs.getTimestamp("uploaddate"));
                 video.setStatus(rs.getInt("status"));
                 video.setUser(user);
                 video.setCategory(category);
@@ -50,33 +50,33 @@ public class VideoDAO extends DBContext {
     }
 
     public Video getVideoById(int videoId) {
-        String sql = "SELECT v.videoID, v.title, v.description, v.uploadDate, v.status, "
-                + "u.userID, u.username, u.fullName, u.email, "
-                + "c.categoryID, c.categoryName "
-                + "FROM Videos v "
-                + "INNER JOIN Users u ON v.userID = u.userID "
-                + "INNER JOIN Categories c ON v.categoryID = c.categoryID "
-                + "WHERE v.videoID=?";
+        String sql = "SELECT v.videoid, v.title, v.description, v.uploaddate, v.status, "
+                + "u.userid, u.username, u.fullname, u.email, "
+                + "c.categoryid, c.categoryname "
+                + "FROM videos v "
+                + "INNER JOIN users u ON v.userid = u.userid "
+                + "INNER JOIN categories c ON v.categoryid = c.categoryid "
+                + "WHERE v.videoid=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, videoId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 User user = new User();
-                user.setUserId(rs.getInt("userID"));
+                user.setUserId(rs.getInt("userid"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
 
                 Category category = new Category();
-                category.setCategoryId(rs.getInt("categoryID"));
-                category.setCategoryName(rs.getString("categoryName"));
+                category.setCategoryId(rs.getInt("categoryid"));
+                category.setCategoryName(rs.getString("categoryname"));
 
                 Video video = new Video();
-                video.setVideoId(rs.getInt("videoID"));
+                video.setVideoId(rs.getInt("videoid"));
                 video.setTitle(rs.getString("title"));
                 video.setDescription(rs.getString("description"));
-                video.setUploadDate(rs.getTimestamp("uploadDate"));
+                video.setUploadDate(rs.getTimestamp("uploaddate"));
                 video.setStatus(rs.getInt("status"));
                 video.setUser(user);
                 video.setCategory(category);
@@ -91,33 +91,33 @@ public class VideoDAO extends DBContext {
 
     public List<Video> getVideosByCategoryId(int categoryId) {
         List<Video> list = new ArrayList<>();
-        String sql = "SELECT v.videoID, v.title, v.description, v.uploadDate, v.status, "
-                + "u.userID, u.username, u.fullName, u.email, "
-                + "c.categoryID, c.categoryName "
-                + "FROM Videos v "
-                + "INNER JOIN Users u ON v.userID = u.userID "
-                + "INNER JOIN Categories c ON v.categoryID = c.categoryID "
-                + "WHERE v.categoryID=?";
+        String sql = "SELECT v.videoid, v.title, v.description, v.uploaddate, v.status, "
+                + "u.userid, u.username, u.fullname, u.email, "
+                + "c.categoryid, c.categoryname "
+                + "FROM videos v "
+                + "INNER JOIN users u ON v.userid = u.userid "
+                + "INNER JOIN categories c ON v.categoryid = c.categoryid "
+                + "WHERE v.categoryid=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, categoryId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setUserId(rs.getInt("userID"));
+                user.setUserId(rs.getInt("userid"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
 
                 Category category = new Category();
-                category.setCategoryId(rs.getInt("categoryID"));
-                category.setCategoryName(rs.getString("categoryName"));
+                category.setCategoryId(rs.getInt("categoryid"));
+                category.setCategoryName(rs.getString("categoryname"));
 
                 Video video = new Video();
-                video.setVideoId(rs.getInt("videoID"));
+                video.setVideoId(rs.getInt("videoid"));
                 video.setTitle(rs.getString("title"));
                 video.setDescription(rs.getString("description"));
-                video.setUploadDate(rs.getTimestamp("uploadDate"));
+                video.setUploadDate(rs.getTimestamp("uploaddate"));
                 video.setStatus(rs.getInt("status"));
                 video.setUser(user);
                 video.setCategory(category);
@@ -131,7 +131,7 @@ public class VideoDAO extends DBContext {
     }
 
     public boolean insert(Video video) {
-        String sql = "INSERT INTO Videos (title, description, userID, categoryID) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO videos (title, description, userid, categoryid) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, video.getTitle());
@@ -147,9 +147,9 @@ public class VideoDAO extends DBContext {
     }
 
     public boolean delete(int videoId) {
-        // Phải xóa comments trước vì có FK constraint
-        String deleteComments = "DELETE FROM Comments WHERE videoID = ?";
-        String deleteVideo = "DELETE FROM Videos WHERE videoID = ?";
+        // Phai xoa comments truoc vi co FK constraint
+        String deleteComments = "DELETE FROM comments WHERE videoid = ?";
+        String deleteVideo = "DELETE FROM videos WHERE videoid = ?";
         try {
             PreparedStatement ps1 = conn.prepareStatement(deleteComments);
             ps1.setInt(1, videoId);
@@ -167,33 +167,33 @@ public class VideoDAO extends DBContext {
 
     public List<Video> getVideosByUserId(int userId) {
         List<Video> list = new ArrayList<>();
-        String sql = "SELECT v.videoID, v.title, v.description, v.uploadDate, v.status, "
-                + "u.userID, u.username, u.fullName, u.email, "
-                + "c.categoryID, c.categoryName "
-                + "FROM Videos v "
-                + "INNER JOIN Users u ON v.userID = u.userID "
-                + "INNER JOIN Categories c ON v.categoryID = c.categoryID "
-                + "WHERE v.userID=?";
+        String sql = "SELECT v.videoid, v.title, v.description, v.uploaddate, v.status, "
+                + "u.userid, u.username, u.fullname, u.email, "
+                + "c.categoryid, c.categoryname "
+                + "FROM videos v "
+                + "INNER JOIN users u ON v.userid = u.userid "
+                + "INNER JOIN categories c ON v.categoryid = c.categoryid "
+                + "WHERE v.userid=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setUserId(rs.getInt("userID"));
+                user.setUserId(rs.getInt("userid"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
 
                 Category category = new Category();
-                category.setCategoryId(rs.getInt("categoryID"));
-                category.setCategoryName(rs.getString("categoryName"));
+                category.setCategoryId(rs.getInt("categoryid"));
+                category.setCategoryName(rs.getString("categoryname"));
 
                 Video video = new Video();
-                video.setVideoId(rs.getInt("videoID"));
+                video.setVideoId(rs.getInt("videoid"));
                 video.setTitle(rs.getString("title"));
                 video.setDescription(rs.getString("description"));
-                video.setUploadDate(rs.getTimestamp("uploadDate"));
+                video.setUploadDate(rs.getTimestamp("uploaddate"));
                 video.setStatus(rs.getInt("status"));
                 video.setUser(user);
                 video.setCategory(category);
@@ -207,7 +207,7 @@ public class VideoDAO extends DBContext {
     }
 
     public boolean changeVideoStatus(int videoId, int newStatus) {
-        String sql = "UPDATE Videos SET status = ? WHERE videoID = ?";
+        String sql = "UPDATE videos SET status = ? WHERE videoid = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, newStatus);

@@ -11,19 +11,19 @@ import util.DBContext;
 public class SubscriptionDAO extends DBContext {
     public List<User> getSubscribers(int channelOwnerId) {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT u.userID, u.username, u.fullName, u.email "
-                + "FROM Subscriptions s "
-                + "INNER JOIN Users u ON s.subscriberID = u.userID "
-                + "WHERE s.channelOwnerID = ?";
+        String sql = "SELECT u.userid, u.username, u.fullname, u.email "
+                + "FROM subscriptions s "
+                + "INNER JOIN users u ON s.subscriberid = u.userid "
+                + "WHERE s.channelownerid = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, channelOwnerId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setUserId(rs.getInt("userID"));
+                user.setUserId(rs.getInt("userid"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
                 list.add(user);
             }
@@ -35,19 +35,19 @@ public class SubscriptionDAO extends DBContext {
 
     public List<User> getSubscriptions(int subscriberId) {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT u.userID, u.username, u.fullName, u.email "
-                + "FROM Subscriptions s "
-                + "INNER JOIN Users u ON s.channelOwnerID = u.userID "
-                + "WHERE s.subscriberID = ?";
+        String sql = "SELECT u.userid, u.username, u.fullname, u.email "
+                + "FROM subscriptions s "
+                + "INNER JOIN users u ON s.channelownerid = u.userid "
+                + "WHERE s.subscriberid = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, subscriberId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setUserId(rs.getInt("userID"));
+                user.setUserId(rs.getInt("userid"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
                 list.add(user);
             }
@@ -58,7 +58,7 @@ public class SubscriptionDAO extends DBContext {
     }
 
     public boolean subscribe(int subscriberId, int channelOwnerId) {
-        String sql = "INSERT INTO Subscriptions (subscriberID, channelOwnerID) VALUES (?, ?)";
+        String sql = "INSERT INTO subscriptions (subscriberid, channelownerid) VALUES (?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, subscriberId);
@@ -72,7 +72,7 @@ public class SubscriptionDAO extends DBContext {
     }
 
     public boolean unsubscribe(int subscriberId, int channelOwnerId) {
-        String sql = "DELETE FROM Subscriptions WHERE subscriberID = ? AND channelOwnerID = ?";
+        String sql = "DELETE FROM subscriptions WHERE subscriberid = ? AND channelownerid = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, subscriberId);
@@ -86,7 +86,7 @@ public class SubscriptionDAO extends DBContext {
     }
 
     public boolean isSubscribed(int subscriberId, int channelOwnerId) {
-        String sql = "SELECT * FROM Subscriptions WHERE subscriberID = ? AND channelOwnerID = ?";
+        String sql = "SELECT * FROM subscriptions WHERE subscriberid = ? AND channelownerid = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, subscriberId);

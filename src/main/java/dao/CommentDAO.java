@@ -12,27 +12,27 @@ import util.DBContext;
 public class CommentDAO extends DBContext {
     public List<Comment> getCommentsByVideoId(int videoId) {
         List<Comment> list = new ArrayList<>();
-        String sql = "SELECT c.commentID, c.content, c.commentDate, c.status, "
-                + "u.userID, u.username, u.fullName, u.email "
-                + "FROM Comments c "
-                + "INNER JOIN Users u ON c.userID = u.userID "
-                + "WHERE c.videoID=? "
-                + "ORDER BY c.commentDate DESC";
+        String sql = "SELECT c.commentid, c.content, c.commentdate, c.status, "
+                + "u.userid, u.username, u.fullname, u.email "
+                + "FROM comments c "
+                + "INNER JOIN users u ON c.userid = u.userid "
+                + "WHERE c.videoid=? "
+                + "ORDER BY c.commentdate DESC";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, videoId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setUserId(rs.getInt("userID"));
+                user.setUserId(rs.getInt("userid"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullName"));
+                user.setFullName(rs.getString("fullname"));
                 user.setEmail(rs.getString("email"));
 
                 Comment comment = new Comment();
-                comment.setCommentId(rs.getInt("commentID"));
+                comment.setCommentId(rs.getInt("commentid"));
                 comment.setContent(rs.getString("content"));
-                comment.setCommentDate(rs.getTimestamp("commentDate"));
+                comment.setCommentDate(rs.getTimestamp("commentdate"));
                 comment.setStatus(rs.getInt("status"));
                 comment.setUser(user);
 
@@ -45,7 +45,7 @@ public class CommentDAO extends DBContext {
     }
 
     public boolean addComment(String content, int userId, int videoId) {
-        String sql = "INSERT INTO Comments (content, userID, videoID) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO comments (content, userid, videoid) VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, content);
@@ -60,7 +60,7 @@ public class CommentDAO extends DBContext {
     }
 
     public boolean changeCommentStatus(int commentId, int newStatus) {
-        String sql = "UPDATE Comments SET status = ? WHERE commentID = ?";
+        String sql = "UPDATE comments SET status = ? WHERE commentid = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, newStatus);

@@ -24,17 +24,17 @@ public class UserDAO extends DBContext {
 
     public User login(String username, String password) {
         User u = new User();
-        String sql = "select * from Users where username = ? and password = ?";
+        String sql = "select * from users where username = ? and password = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, hashMD5(password));
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                u.setUserId(rs.getInt("userID"));
+                u.setUserId(rs.getInt("userid"));
                 u.setUsername(rs.getString("username"));
                 u.setPassword(rs.getString("password"));
-                u.setFullName(rs.getString("fullName"));
+                u.setFullName(rs.getString("fullname"));
                 u.setEmail(rs.getString("email"));
                 u.setRole(rs.getInt("role"));
                 u.setStatus(rs.getInt("status"));
@@ -50,16 +50,16 @@ public class UserDAO extends DBContext {
 
     public User getUserByUsername(String username) {
         User u = new User();
-        String sql = "select * from Users where username = ?";
+        String sql = "select * from users where username = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                u.setUserId(rs.getInt("userID"));
+                u.setUserId(rs.getInt("userid"));
                 u.setUsername(rs.getString("username"));
                 u.setPassword(rs.getString("password"));
-                u.setFullName(rs.getString("fullName"));
+                u.setFullName(rs.getString("fullname"));
                 u.setEmail(rs.getString("email"));
                 u.setRole(rs.getInt("role"));
                 u.setStatus(rs.getInt("status"));
@@ -72,17 +72,17 @@ public class UserDAO extends DBContext {
 
     public User loginByEmail(String email, String password) {
         User u = new User();
-        String sql = "select * from Users where email = ? and password = ?";
+        String sql = "select * from users where email = ? and password = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, hashMD5(password));
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                u.setUserId(rs.getInt("userID"));
+                u.setUserId(rs.getInt("userid"));
                 u.setUsername(rs.getString("username"));
                 u.setPassword(rs.getString("password"));
-                u.setFullName(rs.getString("fullName"));
+                u.setFullName(rs.getString("fullname"));
                 u.setEmail(rs.getString("email"));
                 u.setRole(rs.getInt("role"));
                 u.setStatus(rs.getInt("status"));
@@ -98,7 +98,7 @@ public class UserDAO extends DBContext {
 
     public boolean register(String username, String password, String fullName, String email) {
         // Check if email already exists
-        String checkSql = "select * from Users where email = ?";
+        String checkSql = "select * from users where email = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(checkSql);
             ps.setString(1, email);
@@ -110,7 +110,7 @@ public class UserDAO extends DBContext {
             e.printStackTrace();
         }
         
-        String sql = "INSERT INTO Users (username, password, fullName, email) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (username, password, fullname, email) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
@@ -127,16 +127,16 @@ public class UserDAO extends DBContext {
 
     public java.util.List<User> getAllUsers() {
         java.util.List<User> list = new java.util.ArrayList<>();
-        String sql = "SELECT * FROM Users";
+        String sql = "SELECT * FROM users";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User u = new User();
-                u.setUserId(rs.getInt("userID"));
+                u.setUserId(rs.getInt("userid"));
                 u.setUsername(rs.getString("username"));
                 u.setPassword(rs.getString("password"));
-                u.setFullName(rs.getString("fullName"));
+                u.setFullName(rs.getString("fullname"));
                 u.setEmail(rs.getString("email"));
                 u.setRole(rs.getInt("role"));
                 u.setStatus(rs.getInt("status"));
@@ -149,7 +149,7 @@ public class UserDAO extends DBContext {
     }
 
     public boolean changeUserStatus(int userId, int newStatus) {
-        String sql = "UPDATE Users SET status = ? WHERE userID = ?";
+        String sql = "UPDATE users SET status = ? WHERE userid = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, newStatus);

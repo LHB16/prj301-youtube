@@ -30,9 +30,29 @@ public class TestDBServlet extends HttpServlet {
         try {
             // Test connection
             if (dbUrl != null) {
-                String jdbcUrl = dbUrl.replace("postgres://", "jdbc:postgresql://");
-                if (!jdbcUrl.contains("?")) {
-                    jdbcUrl += "?user=postgres&password=xxx";
+                String jdbcUrl = dbUrl;
+                
+                // Handle both "postgresql://" and "postgres://" formats
+                if (jdbcUrl.startsWith("postgresql://")) {
+                    jdbcUrl = "jdbc:" + jdbcUrl;
+                } else if (jdbcUrl.startsWith("postgres://")) {
+                    jdbcUrl = jdbcUrl.replace("postgres://", "jdbc:postgresql://");
+                }
+                
+                // Extract credentials and rebuild URL
+                if (jdbcUrl.contains("@")) {
+                    String[] parts = jdbcUrl.split("@");
+                    String credentials = parts[0].replace("jdbc:postgresql://", "");
+                    String hostAndPath = parts[1];
+                    
+                    String[] credParts = credentials.split(":");
+                    String user = credParts[0];
+                    String password = credParts.length > 1 ? credParts[1] : "";
+                    
+                    jdbcUrl = "jdbc:postgresql://" + hostAndPath 
+                            + "?user=" + user 
+                            + "&password=" + password
+                            + "&sslmode=require";
                 }
                 
                 Class.forName("org.postgresql.Driver");
