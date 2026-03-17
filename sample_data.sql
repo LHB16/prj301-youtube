@@ -1,14 +1,13 @@
 -- ============================================
 -- DỮ LIỆU MẪU CHO PRJ301 YOUTUBE
--- Cấu trúc giống với PRJ301_YouTube.sql (SQL Server)
 -- ============================================
 
 -- 1. Tạo bảng Users (nếu chưa tồn tại)
 CREATE TABLE IF NOT EXISTS Users (
-    userID SERIAL PRIMARY KEY,
+    userid SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    fullName VARCHAR(100),
+    fullname VARCHAR(100),
     email VARCHAR(100),
     role INT DEFAULT 0,
     status INT DEFAULT 1
@@ -19,9 +18,9 @@ ALTER TABLE Users DISABLE ROW LEVEL SECURITY;
 -- Xóa dữ liệu cũ
 TRUNCATE TABLE Users RESTART IDENTITY CASCADE;
 
--- Thêm dữ liệu mẫu (giống PRJ301_YouTube.sql)
+-- Thêm dữ liệu mẫu
 -- Password MD5: 123=202cb962ac59075b964b07152d234b70, admin=123456=e10adc3949ba59abbe56e057f20f883e
-INSERT INTO Users (username, password, fullName, email, role, status) 
+INSERT INTO Users (username, password, fullname, email, role, status) 
 VALUES 
 ('binh_fpt', '202cb962ac59075b964b07152d234b70', 'Nguyen Binh', 'binh@fpt.edu.vn', 0, 1),
 ('thay_giao', '202cb962ac59075b964b07152d234b70', 'Giang vien PRJ', 'teacher@fpt.edu.vn', 0, 1),
@@ -33,18 +32,18 @@ VALUES
 
 -- ============================================
 
--- 2. Tạo bảng Categories (dùng 'name' thay vì 'categoryName')
+-- 2. Tạo bảng Categories
 CREATE TABLE IF NOT EXISTS Categories (
-    categoryID SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
+    categoryid SERIAL PRIMARY KEY,
+    categoryname VARCHAR(50) NOT NULL
 );
 
 ALTER TABLE Categories DISABLE ROW LEVEL SECURITY;
 
 TRUNCATE TABLE Categories RESTART IDENTITY CASCADE;
 
--- Thêm 6 Danh mục (dùng cột 'name')
-INSERT INTO Categories (name) 
+-- Thêm 6 Danh mục
+INSERT INTO Categories (categoryname) 
 VALUES 
 ('Game'), ('Am nhac'), ('Phim'), ('Tin tuc'), ('Giao duc'), ('The thao');
 
@@ -52,13 +51,13 @@ VALUES
 
 -- 3. Tạo bảng Videos
 CREATE TABLE IF NOT EXISTS Videos (
-    videoID SERIAL PRIMARY KEY,
+    videoid SERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     description TEXT,
-    uploadDate TIMESTAMP DEFAULT NOW(),
+    uploaddate TIMESTAMP DEFAULT NOW(),
     status INT DEFAULT 1,
-    userID INT REFERENCES Users(userID),
-    categoryID INT REFERENCES Categories(categoryID)
+    userid INT REFERENCES Users(userid),
+    categoryid INT REFERENCES Categories(categoryid)
 );
 
 ALTER TABLE Videos DISABLE ROW LEVEL SECURITY;
@@ -66,7 +65,7 @@ ALTER TABLE Videos DISABLE ROW LEVEL SECURITY;
 TRUNCATE TABLE Videos RESTART IDENTITY CASCADE;
 
 -- Thêm 6 Video
-INSERT INTO Videos (title, description, userID, categoryID) 
+INSERT INTO Videos (title, description, userid, categoryid) 
 VALUES 
 ('LCS Summer 2026 Highlighs', 'Tran dau dinh cao', 4, 1),
 ('Chung ta cua tuong lai', 'MTP Official MV', 3, 2),
@@ -79,12 +78,12 @@ VALUES
 
 -- 4. Tạo bảng Comments
 CREATE TABLE IF NOT EXISTS Comments (
-    commentID SERIAL PRIMARY KEY,
+    commentid SERIAL PRIMARY KEY,
     content TEXT,
-    commentDate TIMESTAMP DEFAULT NOW(),
+    commentdate TIMESTAMP DEFAULT NOW(),
     status INT DEFAULT 1,
-    userID INT REFERENCES Users(userID),
-    videoID INT REFERENCES Videos(videoID)
+    userid INT REFERENCES Users(userid),
+    videoid INT REFERENCES Videos(videoid)
 );
 
 ALTER TABLE Comments DISABLE ROW LEVEL SECURITY;
@@ -92,7 +91,7 @@ ALTER TABLE Comments DISABLE ROW LEVEL SECURITY;
 TRUNCATE TABLE Comments RESTART IDENTITY CASCADE;
 
 -- Thêm 6 Bình luận
-INSERT INTO Comments (content, userID, videoID) 
+INSERT INTO Comments (content, userid, videoid) 
 VALUES 
 ('Hay qua anh Do oi!', 1, 1),
 ('MV dinh cao that su', 4, 2),
@@ -105,9 +104,9 @@ VALUES
 
 -- 5. Tạo bảng Subscriptions
 CREATE TABLE IF NOT EXISTS Subscriptions (
-    subscriberID INT REFERENCES Users(userID),
-    channelOwnerID INT REFERENCES Users(userID),
-    PRIMARY KEY (subscriberID, channelOwnerID)
+    subscriberid INT REFERENCES Users(userid),
+    channelownerid INT REFERENCES Users(userid),
+    PRIMARY KEY (subscriberid, channelownerid)
 );
 
 ALTER TABLE Subscriptions DISABLE ROW LEVEL SECURITY;
@@ -115,7 +114,7 @@ ALTER TABLE Subscriptions DISABLE ROW LEVEL SECURITY;
 TRUNCATE TABLE Subscriptions RESTART IDENTITY CASCADE;
 
 -- Thêm 6 Lượt đăng ký
-INSERT INTO Subscriptions (subscriberID, channelOwnerID) 
+INSERT INTO Subscriptions (subscriberid, channelownerid) 
 VALUES 
 (1, 3), (1, 4), (4, 3), (2, 5), (5, 6), (6, 2);
 
