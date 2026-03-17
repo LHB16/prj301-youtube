@@ -57,22 +57,22 @@ public class DBContext {
         if (url.contains("@")) {
             String[] parts = url.split("@");
             String credentials = parts[0].replace("jdbc:postgresql://", "");
-            String hostPart = parts[1];
+            String hostAndPath = parts[1];
             
             // Split user and password
             String[] credParts = credentials.split(":");
             String user = credParts[0];
             String password = credParts.length > 1 ? credParts[1] : "";
             
-            // Reconstruct URL - use 'postgres' as database name (Supabase default)
-            // Ignore the original database name from URL
-            String jdbcUrl = "jdbc:postgresql://" + hostPart;
-            if (!url.contains("?")) {
-                jdbcUrl += "?user=" + user + "&password=" + password;
-            } else {
-                // Keep existing query params
-                String[] urlParts = url.split("\\?");
-                jdbcUrl = "jdbc:postgresql://" + parts[1] + "?" + urlParts[1] + "&user=" + user + "&password=" + password;
+            // Reconstruct URL
+            String jdbcUrl = "jdbc:postgresql://" + hostAndPath;
+            
+            // Add user and password as query params if not already present
+            if (!jdbcUrl.contains("user=")) {
+                jdbcUrl += "?user=" + user;
+            }
+            if (!jdbcUrl.contains("password=")) {
+                jdbcUrl += "&password=" + password;
             }
             
             return jdbcUrl;
