@@ -1,0 +1,23 @@
+Tài khoản mẫu:
+
+== ADMIN ==
+Username: admin
+Password: admin
+Role: Admin (quyền cao nhất)
+
+== USER THƯỜNG ==
+Username: user1
+Password: 123
+Role: User thường
+
+Username: user2
+Password: 123
+Role: User thường
+
+== Mô tả quyền ==
+- role = 1: Admin (có thể quản lý user, video, category)
+- role = 0: User thường (chỉ xem và upload video của mình)
+
+== Cách dùng ==
+1. Login bằng tài khoản admin để vào trang admin
+2. Login bằng user thường để test các tính năng cơ bản

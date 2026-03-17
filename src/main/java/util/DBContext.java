@@ -50,12 +50,33 @@ public class DBContext {
     }
     
     private String convertSupabaseUrlToJdbc(String supabaseUrl) {
-        // Convert postgresql://user:pass@host:port/db to jdbc:postgresql://host:port/db
+        // Convert postgresql://user:pass@host:port/db to jdbc:postgresql://host:port/db?user=user&password=pass
         String url = supabaseUrl.replace("postgres://", "jdbc:postgresql://");
-        // Remove query parameters like ?sslmode=require
-        if (url.contains("?")) {
-            url = url.substring(0, url.indexOf("?"));
+        
+        // Extract user:pass from URL
+        if (url.contains("@")) {
+            String[] parts = url.split("@");
+            String credentials = parts[0].replace("jdbc:postgresql://", "");
+            String hostPart = parts[1];
+            
+            // Split user and password
+            String[] credParts = credentials.split(":");
+            String user = credParts[0];
+            String password = credParts.length > 1 ? credParts[1] : "";
+            
+            // Reconstruct URL with query parameters
+            String jdbcUrl = "jdbc:postgresql://" + hostPart;
+            if (!url.contains("?")) {
+                jdbcUrl += "?user=" + user + "&password=" + password;
+            } else {
+                // Keep existing query params and add user/password
+                String[] urlParts = url.split("\\?");
+                jdbcUrl = "jdbc:postgresql://" + parts[1] + "?" + urlParts[1] + "&user=" + user + "&password=" + password;
+            }
+            
+            return jdbcUrl;
         }
+        
         return url;
     }
 
