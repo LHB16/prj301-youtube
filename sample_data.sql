@@ -33,18 +33,18 @@ VALUES
 
 -- ============================================
 
--- 2. Tạo bảng Categories
+-- 2. Tạo bảng Categories (dùng 'name' thay vì 'categoryName')
 CREATE TABLE IF NOT EXISTS Categories (
     categoryID SERIAL PRIMARY KEY,
-    categoryName VARCHAR(50) NOT NULL
+    name VARCHAR(50) NOT NULL
 );
 
 ALTER TABLE Categories DISABLE ROW LEVEL SECURITY;
 
 TRUNCATE TABLE Categories RESTART IDENTITY CASCADE;
 
--- Thêm 6 Danh mục (giống PRJ301_YouTube.sql)
-INSERT INTO Categories (categoryName) 
+-- Thêm 6 Danh mục (dùng cột 'name')
+INSERT INTO Categories (name) 
 VALUES 
 ('Game'), ('Am nhac'), ('Phim'), ('Tin tuc'), ('Giao duc'), ('The thao');
 
@@ -65,7 +65,7 @@ ALTER TABLE Videos DISABLE ROW LEVEL SECURITY;
 
 TRUNCATE TABLE Videos RESTART IDENTITY CASCADE;
 
--- Thêm 6 Video (giống PRJ301_YouTube.sql)
+-- Thêm 6 Video
 INSERT INTO Videos (title, description, userID, categoryID) 
 VALUES 
 ('LCS Summer 2026 Highlighs', 'Tran dau dinh cao', 4, 1),
@@ -91,7 +91,7 @@ ALTER TABLE Comments DISABLE ROW LEVEL SECURITY;
 
 TRUNCATE TABLE Comments RESTART IDENTITY CASCADE;
 
--- Thêm 6 Bình luận (giống PRJ301_YouTube.sql)
+-- Thêm 6 Bình luận
 INSERT INTO Comments (content, userID, videoID) 
 VALUES 
 ('Hay qua anh Do oi!', 1, 1),
@@ -114,7 +114,7 @@ ALTER TABLE Subscriptions DISABLE ROW LEVEL SECURITY;
 
 TRUNCATE TABLE Subscriptions RESTART IDENTITY CASCADE;
 
--- Thêm 6 Lượt đăng ký (giống PRJ301_YouTube.sql)
+-- Thêm 6 Lượt đăng ký
 INSERT INTO Subscriptions (subscriberID, channelOwnerID) 
 VALUES 
 (1, 3), (1, 4), (4, 3), (2, 5), (5, 6), (6, 2);
