@@ -1,0 +1,26 @@
+# Google Apps Script để ping server mỗi 5 phút
+# Copy đoạn code này vào Google Apps Script (script.google.com)
+
+function keepServerAlive() {
+  var url = "https://YOUR_RENDER_APP.onrender.com/health"; // Thay bằng URL backend của bạn
+  
+  try {
+    var response = UrlFetchApp.fetch(url, {
+      method: "get",
+      muteHttpExceptions: true
+    });
+    
+    Logger.log("Ping successful at " + new Date());
+    Logger.log("Status: " + response.getResponseCode());
+  } catch (e) {
+    Logger.log("Ping failed: " + e.toString());
+  }
+}
+
+// Setup trigger trong Apps Script:
+// 1. Click vào "Triggers" (icon đồng hồ)
+// 2. "Add Trigger"
+// 3. Function: keepServerAlive
+// 4. Event source: Time-driven
+// 5. Event type: Hour timer
+// 6. Interval: Every 5 minutes
